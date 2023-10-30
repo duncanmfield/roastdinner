@@ -5,19 +5,19 @@
   <title>The Great Roast Dinner Timing Chart</title>
   <meta name="description" content="This page uses some Javascript magic to automatically generate you a list of timed instructions for creating the perfect roast dinner.">
   <style type="text/css">
-  body{margin:40px auto;max-width:750px;font-size:16px;font-family:sans-serif;color:#222;padding:0 10px}
-  p#intro{line-height:1.6em}
-  span#meatList,span#sideIngredientList{line-height:2.5em;}
-  .item{display:inline-block;margin-bottom:0.5em;margin-right:0.5em;}
-  input{font-size:16px;}
-  fieldset{margin-bottom:1em}
-  fieldset#timingchart{margin-top:2em}
-  legend{font-weight:bold}
-  table{border-collapse: collapse;}
-  td{margin:0.5em; padding:0.5em; border-bottom:1px solid gray;}
-  td.timetd{white-space: nowrap;}
-  p.warn{color:red}
-  p.footer{color:gray;margin-top:2em;font-size:12px}
+    body{margin:40px auto;max-width:750px;font-size:16px;font-family:sans-serif;color:#222;padding:0 10px}
+    p#intro{line-height:1.6em}
+    span#meatList,span#sideIngredientList{line-height:2.5em;}
+    .item{display:inline-block;margin-bottom:0.5em;margin-right:0.5em;}
+    input{font-size:16px;}
+    fieldset{margin-bottom:1em}
+    fieldset#timingchart{margin-top:2em}
+    legend{font-weight:bold}
+    table{border-collapse: collapse;}
+    td{margin:0.5em; padding:0.5em; border-bottom:1px solid gray;}
+    td.timetd{white-space: nowrap;}
+    p.warn{color:red}
+    p.footer{color:gray;margin-top:2em;font-size:12px}
   </style>
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <script type='text/javascript' src='https://code.jquery.com/jquery-1.12.4.min.js'></script>
@@ -35,9 +35,9 @@
   <fieldset>
     <legend>Meat</legend>
     <span id="meatList"></span><br/>
-    Weight: <input id="weight" style="width:4em;" value="3.5"/>
-    <input type="radio" name="unit" class="unitRadioButton" value="lb" id="radioLB" checked/><label for="radioLB">lb</label>
-    <input type="radio" name="unit" class="unitRadioButton" value="kg" id="radioKG"/><label for="radioKG">kg</label>
+    Weight: <input id="weight" style="width:4em;" value="1.6"/>
+    <input type="radio" name="unit" class="unitRadioButton" value="lb" id="radioLB"/><label for="radioLB">lb</label>
+    <input type="radio" name="unit" class="unitRadioButton" value="kg" id="radioKG" checked/><label for="radioKG">kg</label>
   </fieldset>
   <fieldset>
     <legend>Vegetables</legend>
@@ -77,11 +77,10 @@ meats.set('Turkey', [10, 70]);
 // is the step to complete at this time.
 var veg = new Map();
 veg.set('Roast Potatoes', new Map([
-  [90,'Peel and cut the potatoes into quarters. Place them in a saucepan and cover with cold water. Bring to the boil.'],
-  [80,'Once the potatoes have come to the boil, reduce to a simmer.'],
-  [75,'Place some oil in a roasting dish and place in the oven to heat up the oil.'],
-  [70,'Once the potatoes have simmered for 10 minutes, drain them. Add the potatoes to the roasting dish with hot oil in, and turn them to ensure they have a thin coating of oil on all sides. Return the dish to the oven.'],
-  [30,'Turn the potatoes.']
+  [95,'Peel and cut the potatoes into quarters. Place them in a saucepan and cover with cold water. Bring to the boil.'],
+  [85,'Once the potatoes have come to the boil, reduce to a simmer.'],
+  [75,'Place some oil in a roasting dish and place in the oven to heat up the oil. Optionally, make mix of garlic (~0.5-1 cloves per person), oil and mixed herbs.'],
+  [70,'Once the potatoes are soft enough to be pierced with a fork, drain them, and shake the pan to break up the edges. Pour on garlic oil mix, and add the potatoes to the roasting dish with hot oil in.'],
 ]));
 veg.set('Roast Parsnips', new Map([
   [65,'Peel the parsnips and chop into batons.'],
@@ -122,14 +121,14 @@ extras.set('Pigs in Blankets (full size)', new Map([
   [50,'Wrap each sausage with a rasher of bacon.'],
   [45,'Place the pigs in blankets into an oven dish, and place in the oven.']
 ]));
-extras.set('Yorkshire Puddings (frozen)', new Map([
-  [5,'Place frozen Yorksire puddings on a baking tray in the oven.']
-]));
 extras.set('Yorkshire Puddings (batter mix)', new Map([
   [45, 'Mix the Yorkshire pudding batter as instructed by packaging'],
   [40, 'Place Yorkshire puddings tin with a little oil in each, and put in oven to warm'],
   [25, 'Divide Yorkshire pudding batter equally into tin compartments and put it back into the oven'],
   [5, 'Remove Yorkshire puddings from oven, or when they are risen and golden']
+]));
+extras.set('Yorkshire Puddings (frozen)', new Map([
+  [5,'Place frozen Yorksire puddings on a baking tray in the oven.']
 ]));
 extras.set('Stuffing balls (home-made)', new Map([
   [60,'Finely chop quarter of an onion and fry gently until soft. Leave to cool.'],
@@ -142,7 +141,7 @@ extras.set('Stuffing balls (from packet)', new Map([
   [25,'Place stuffing on a tray or oven dish and place it in the oven.']
 ]));
 extras.set('Gravy (from granules)', new Map([
-  [10,'Heat a pan of water to a gentle simmer, or if using a steamer for vegetables then use the steamer base. Add gravy granules and stir until the required thickness is achieved.'],
+  [10,'Boil water and add gravy granules and stir until the required thickness is achieved.'],
   [5,'Add the juices from the meat roasting dish to the gravy.']
 ]));
 
@@ -208,10 +207,10 @@ function setup() {
   jQuery('#vegCheckbox0').button( "refresh" );
   jQuery('#vegCheckbox2').prop("checked", true);
   jQuery('#vegCheckbox2').button( "refresh" );
-  jQuery('#extraCheckbox0').prop("checked", true);
-  jQuery('#extraCheckbox0').button( "refresh" );
   jQuery('#extraCheckbox5').prop("checked", true);
   jQuery('#extraCheckbox5').button( "refresh" );
+  jQuery('#extraCheckbox6').prop("checked", true);
+  jQuery('#extraCheckbox6').button( "refresh" );
   recalculate();
 }
 
